@@ -35,10 +35,9 @@ namespace ArduinoBluetoothControl
             this.connectButton = new System.Windows.Forms.Button();
             this.textBox = new System.Windows.Forms.TextBox();
             this.quitButton = new System.Windows.Forms.Button();
-            this.startButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.textBoxTemperature = new System.Windows.Forms.TextBox();
             this.stopButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBox
@@ -50,7 +49,7 @@ namespace ArduinoBluetoothControl
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Location = new System.Drawing.Point(191, 42);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(200, 21);
+            this.comboBox.Size = new System.Drawing.Size(209, 21);
             this.comboBox.TabIndex = 0;
             // 
             // connectButton
@@ -68,11 +67,11 @@ namespace ArduinoBluetoothControl
             // 
             this.textBox.Enabled = false;
             this.textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox.Location = new System.Drawing.Point(34, 138);
+            this.textBox.Location = new System.Drawing.Point(97, 109);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(259, 112);
+            this.textBox.Size = new System.Drawing.Size(384, 188);
             this.textBox.TabIndex = 3;
             // 
             // quitButton
@@ -87,21 +86,10 @@ namespace ArduinoBluetoothControl
             this.quitButton.UseVisualStyleBackColor = false;
             this.quitButton.Click += new System.EventHandler(this.quitButton_Click);
             // 
-            // startButton
-            // 
-            this.startButton.BackColor = System.Drawing.SystemColors.Control;
-            this.startButton.Location = new System.Drawing.Point(34, 282);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(70, 40);
-            this.startButton.TabIndex = 5;
-            this.startButton.Text = "Käynnistä";
-            this.startButton.UseVisualStyleBackColor = false;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
-            // 
             // saveButton
             // 
             this.saveButton.BackColor = System.Drawing.SystemColors.Control;
-            this.saveButton.Location = new System.Drawing.Point(223, 282);
+            this.saveButton.Location = new System.Drawing.Point(97, 325);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(70, 40);
             this.saveButton.TabIndex = 6;
@@ -109,22 +97,10 @@ namespace ArduinoBluetoothControl
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // textBoxTemperature
-            // 
-            this.textBoxTemperature.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxTemperature.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTemperature.Enabled = false;
-            this.textBoxTemperature.Location = new System.Drawing.Point(111, 112);
-            this.textBoxTemperature.Name = "textBoxTemperature";
-            this.textBoxTemperature.Size = new System.Drawing.Size(100, 13);
-            this.textBoxTemperature.TabIndex = 7;
-            this.textBoxTemperature.Text = "Lämpötila";
-            this.textBoxTemperature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // stopButton
             // 
             this.stopButton.BackColor = System.Drawing.SystemColors.Control;
-            this.stopButton.Location = new System.Drawing.Point(129, 282);
+            this.stopButton.Location = new System.Drawing.Point(411, 325);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(70, 40);
             this.stopButton.TabIndex = 8;
@@ -132,16 +108,22 @@ namespace ArduinoBluetoothControl
             this.stopButton.UseVisualStyleBackColor = false;
             this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.TabIndex = 0;
+            // 
             // ArduinoController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(613, 457);
+            this.ClientSize = new System.Drawing.Size(622, 456);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.stopButton);
-            this.Controls.Add(this.textBoxTemperature);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.startButton);
             this.Controls.Add(this.quitButton);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.connectButton);
@@ -162,10 +144,9 @@ namespace ArduinoBluetoothControl
         private System.Windows.Forms.Button connectButton;
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.Button quitButton;
-        private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.TextBox textBoxTemperature;
         private System.Windows.Forms.Button stopButton;
+        private System.Windows.Forms.Label label1;
     }
 }
 

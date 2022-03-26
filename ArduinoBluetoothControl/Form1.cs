@@ -15,8 +15,13 @@ namespace ArduinoBluetoothControl
 {
     public partial class ArduinoController : Form
     {
-        string tempValues;
+        string sensorValues;
+        string gasValue;
+        string message;
+        string tempValue;
+        string[] dataParts;
         float temperature;
+        float gas;
         bool isSaving = false;
         DateTime now;
         private SerialPort serialPort;
@@ -28,7 +33,6 @@ namespace ArduinoBluetoothControl
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            startButton.Enabled = false;
             saveButton.Enabled = false;
             stopButton.Enabled = false;
             string[] ports = SerialPort.GetPortNames();
@@ -55,6 +59,9 @@ namespace ArduinoBluetoothControl
                 try
                 {
                     CreateSerialPortConnection();
+                    comboBox.Enabled = false;
+                    Thread t = new Thread(GetSensorValuesFromArduino);
+                    t.Start();
                 }
                 catch (Exception ex)
                 {
@@ -77,19 +84,11 @@ namespace ArduinoBluetoothControl
             
             Application.Exit();
         }
-
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            startButton.Enabled = false;
-            comboBox.Enabled = false;
-            Thread t = new Thread(GetTempFromArduino);
-            t.Start();
-        }
-
+       
         private void saveButton_Click(object sender, EventArgs e)
         {
             saveButton.Enabled = false;    
-            Thread th = new Thread(PostTempValuesToDatabase);
+            Thread th = new Thread(PostArduinoValuesToDatabase);
             th.Start();
         }
 
@@ -117,12 +116,27 @@ namespace ArduinoBluetoothControl
             connectButton.BackColor = Color.LightGreen;
             connectButton.Enabled = false;
             comboBox.Enabled = false;
-            startButton.Enabled = true;
         }
 
-        public void ConvertStringTempearatureToDouble() //  Convert string value to number
+        public void ConvertStringToDouble() //  Convert string temperature value to decimal number
         {
-            temperature = (float)Convert.ToDouble(tempValues);
+            temperature = (float)Convert.ToDouble(tempValue);
+            
+        }
+
+        public void ConvertGasValueToMessage()
+        {
+            gas = (float)Convert.ToDouble(gasValue);
+
+            if(gas == 1)
+            {
+                message = "Kaikki ok";
+            }
+            else if(gas == 0)
+            {
+                message = "Kaasuvuoto!";
+            }
+
         }
 
         public void CheckIfValidTemperatureValue()
@@ -131,20 +145,19 @@ namespace ArduinoBluetoothControl
             {          
                 int num = 0;
                 char invalid = '.';
-                for (int i = 0; i < tempValues.Length; i++)
+                for (int i = 0; i < tempValue.Length; i++)
                 {
                     if (i == invalid)
                     {
                         num++;
                         if (num == 2)
                         {
-                            textBox.Text = "";
-             
+                            textBox.Text = ""; 
                         }
                     }
                 }
               
-                ConvertStringTempearatureToDouble();
+                ConvertStringToDouble();
             }
             catch(Exception)
             {
@@ -153,20 +166,24 @@ namespace ArduinoBluetoothControl
             
         }
 
-        public void GetTempFromArduino()    //  Get sensor values from Arduino
+        public void GetSensorValuesFromArduino()    //  Get sensor values (temperature and gas) from Arduino
         {
             saveButton.Enabled = true;
             while (serialPort.IsOpen)
             {
                 try
                 {
-                    tempValues = serialPort.ReadLine();
+                    sensorValues = serialPort.ReadLine();
+                    dataParts = sensorValues.Split(' ');
+                    tempValue = dataParts[0];
+                    gasValue = dataParts[1];
                     CheckIfValidTemperatureValue();
+                    ConvertGasValueToMessage();
                     now = DateTime.Now;
                     if (temperature >= -10 && temperature <= 60)
                     {
-                        //buttonSaveTemps.Enabled = true;
-                        textBox.Text = "\r\n" + "Aika: " + now.ToString(("dd-MM-yyyy HH:mm:ss")) + "\r\n\r\n" + "Lämpötila: " + temperature.ToString();
+                        textBox.Text = "\r\n" + "Aika: " + now.ToString(("dd-MM-yyyy HH:mm:ss")) + "\r\n\r\n" + "Lämpötila: " + temperature.ToString() + 
+                            "\r\n\r\n" + "Kaasuarvo: " + message;
                     }
                    
                     Thread.Sleep(5000);
@@ -178,7 +195,7 @@ namespace ArduinoBluetoothControl
             }
         }
 
-        public void PostTempValuesToDatabase()  //  API connection to database
+        public void PostArduinoValuesToDatabase()  //  API connection to database
         {
             saveButton.Enabled = false;
             stopButton.Enabled = true;
@@ -187,8 +204,9 @@ namespace ArduinoBluetoothControl
             {
                 while (isSaving == true && serialPort.IsOpen)
                 {
-                    string json = "{\"timestamp\":\"" + now.ToString("dd-MM-yyyy HH:mm:ss") + "\",\"value\":\"" + temperature + "\"}";
-                    string url = String.Format("http://localhost:5000/api/arduinoData/temperatures/saveTemperature");
+                    string json = "{\"timestamp\":\"" + now.ToString("dd-MM-yyyy HH:mm:ss") + "\",\"temperature\":\"" + 
+                                    temperature + "\",\"gas\":\"" + message + "\"}";
+                    string url = String.Format("http://localhost:5000/api/arduinoData/data/saveArduinoData");
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                     request.ContentType = "application/json";
                     request.Method = "POST";
@@ -214,7 +232,6 @@ namespace ArduinoBluetoothControl
                     catch (Exception err)
                     {
                         Console.WriteLine(err);
-                        //return;
                         isSaving = false;
                         serialPort.Dispose();
                     }
