@@ -44,6 +44,11 @@ namespace ArduinoBluetoothControl
 
         private void ArduinoController_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (serialPort != null)
+            {
+                serialPort.Dispose();
+                serialPort.Close();
+            }
             isSaving = false;
             Application.Exit();
         }

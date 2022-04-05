@@ -18,3 +18,13 @@ C:\Users\Omistaja\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\Ardu
 C:\Users\Omistaja\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.exe
 C:\Users\Omistaja\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.pdb
 C:\Users\Omistaja\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.csproj.AssemblyReference.cache
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\bin\Debug\ArduinoBluetoothControl.exe.config
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\bin\Debug\ArduinoBluetoothControl.exe
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\bin\Debug\ArduinoBluetoothControl.pdb
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.csproj.AssemblyReference.cache
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.ArduinoController.resources
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.Properties.Resources.resources
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.csproj.GenerateResource.cache
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.csproj.CoreCompileInputs.cache
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.exe
+C:\Users\HP\Documents\ArduinoBluetoothControl\ArduinoBluetoothControl\obj\Debug\ArduinoBluetoothControl.pdb
